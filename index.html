@@ -130,6 +130,7 @@
     <div id="messageSection" style="display:none;">
         <h2>برای اینکه پشتیبان بتونه بهت کمک کنه اول سوال تو بپرس و بعد ایدی تلگرام تو بزار تا بیاد پی وی و بهت کمک کنه</h2>
         <textarea id="userMessage" placeholder="پیام خود را بنویسید..."></textarea>
+        <input type="text" id="telegramId" placeholder="آیدی تلگرام خود را وارد کنید...">
         <button onclick="sendMessage()">ارسال پیام</button>
     </div>
 </div>
@@ -169,16 +170,23 @@
 
     function sendMessage() {
         const message = document.getElementById("userMessage").value;
+        const telegramId = document.getElementById("telegramId").value; // گرفتن آیدی تلگرام
+
+        // بررسی اینکه آیا آیدی تلگرام وارد شده است
+        if (!telegramId) {
+            document.getElementById("errorMessage").textContent = "لطفاً آیدی تلگرام خود را وارد کنید!";
+            return;
+        }
 
         // توکن ربات و Chat ID
         const botToken = '7870121961:AAGExjTsLbhohXAY6efTNlfKuIlqo_1vL_Q';
         const chatId = '1418929811';
 
-        // ارسال پیام 
+        // ارسال پیام به تلگرام
         const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
         const data = {
             chat_id: chatId,
-            text: `پیامی که کاربر ارسال کرده: ${message}`,
+            text: `پیامی که کاربر ارسال کرده: ${message}\n\nآیدی تلگرام: ${telegramId}`,
         };
 
         fetch(url, {
@@ -192,6 +200,7 @@
         .then(data => {
             alert("پیام شما با موفقیت ارسال شد! 😊");
             document.getElementById("userMessage").value = ''; // پاک کردن پیام بعد از ارسال
+            document.getElementById("telegramId").value = ''; // پاک کردن آیدی تلگرام
         })
         .catch(error => {
             console.error("Error:", error);
