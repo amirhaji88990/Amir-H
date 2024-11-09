@@ -48,6 +48,7 @@
             width: 100%;
             max-width: 300px;
             overflow-y: auto;
+            position: relative;
         }
 
         h2 {
@@ -73,17 +74,42 @@
             border-color: #2575fc;
         }
 
+        /* انیمیشن رنگی دور کادر */
         input::before, textarea::before {
             content: '';
             position: absolute;
-            top: -4px;
-            left: -4px;
-            right: -4px;
-            bottom: -4px;
-            background: linear-gradient(45deg, #ff005a, #ffbd44, #3aff75, #6a11cb, #00eaff, #ff005a);
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(90deg, red, green, blue, orange);
             border-radius: 8px;
             z-index: -1;
-            animation: rotateBorder 5s linear infinite;
+            animation: rotateBorder 4s linear infinite;
+        }
+
+        /* انیمیشن چرخش رنگ‌ها */
+        @keyframes rotateBorder {
+            0% {
+                transform: rotate(0deg);
+                background: linear-gradient(90deg, red, green, blue, orange);
+            }
+            25% {
+                transform: rotate(90deg);
+                background: linear-gradient(90deg, green, blue, orange, red);
+            }
+            50% {
+                transform: rotate(180deg);
+                background: linear-gradient(90deg, blue, orange, red, green);
+            }
+            75% {
+                transform: rotate(270deg);
+                background: linear-gradient(90deg, orange, red, green, blue);
+            }
+            100% {
+                transform: rotate(360deg);
+                background: linear-gradient(90deg, red, green, blue, orange);
+            }
         }
 
         button {
@@ -103,30 +129,6 @@
 
         button:hover {
             background-color: #28a745;
-        }
-
-        /* استایل رنگارنگ و متحرک برای دکمه */
-        button::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #ff005a, #ffbd44, #3aff75, #6a11cb, #00eaff, #ff005a);
-            border-radius: 8px;
-            z-index: -1;
-            animation: rotateBorder 5s linear infinite;
-        }
-
-        /* انیمیشن چرخش دور دکمه */
-        @keyframes rotateBorder {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
         }
 
         .error {
@@ -189,13 +191,12 @@
     let messageDisplayed = false;
 
     function processCode() {
-        const userInput = document.getElementById('userInput').value;
-        const errorMessage = document.getElementById('errorMessage');
-        const responseMessage = document.getElementById('responseMessage');
-        const messageSection = document.getElementById('messageSection');
+        const userInput = document.getElementById("userInput").value;
+        const errorMessage = document.getElementById("errorMessage");
+        const messageSection = document.getElementById("messageSection");
+        const responseMessage = document.getElementById("responseMessage");
 
         errorMessage.textContent = '';
-        responseMessage.innerHTML = '';
 
         if (responses[userInput]) {
             responseMessage.innerHTML = `پاسخ شما:<br><br>${responses[userInput]}`;
