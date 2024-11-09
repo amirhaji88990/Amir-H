@@ -213,53 +213,45 @@
         if (responses[userInput]) {
             responseMessage.innerHTML = `پاسخ شما:<br><br>${responses[userInput]}`;
             if (userInput == "88" && !messageDisplayed) {
-                messageSection.style.display = "block";
+                messageSection.style.display = 'block';
                 messageDisplayed = true;
             }
         } else {
-            errorMessage.textContent = 'عذرخواهم، هم‌چین رمزی در سیستم ثبت نشده است!';
+            errorMessage.textContent = 'کد وارد شده معتبر نیست';
+            responseMessage.innerHTML = '';
         }
     }
 
     function sendMessage() {
-        const message = document.getElementById("userMessage").value;
-        const telegramId = document.getElementById("telegramId").value;
-
+        const telegramId = document.getElementById('telegramId').value;
+        const userMessage = document.getElementById('userMessage').value;
+        const errorMessage = document.getElementById('errorMessage');
+        
         if (!telegramId) {
-            document.getElementById("errorMessage").textContent = "لطفاً آیدی تلگرام خود را وارد کنید!";
+            errorMessage.textContent = 'لطفاً آیدی تلگرام خود را وارد کنید!';
             return;
         }
 
-        const botToken = 'YOUR_BOT_TOKEN';
-        const chatId = 'YOUR_CHAT_ID';
-
-        const initialMessage = {
-            chat_id: chatId,
-            text: "📩 پیامی ارسال شده از کاربر:"
-        };
-
-        const userMessage = {
-            chat_id: chatId,
-            text: `\n\n${message}\n\nآیدی تلگرام: ${telegramId}`
-        };
+        const botToken = "YOUR_BOT_TOKEN"; // توکن بوت تلگرام خود را اینجا وارد کنید
+        const chatId = telegramId; // آیدی تلگرام کاربر که باید پیام به آن ارسال شود
 
         fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(initialMessage),
-        })
-        .then(() => {
-            return fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(userMessage),
-            });
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                chat_id: chatId,
+                text: `پیام از طرف کاربر: ${userMessage}`
+            })
         })
         .then(response => response.json())
         .then(data => {
-            alert("پیام شما با موفقیت ارسال شد! 😊");
-            document.getElementById("userMessage").value = '';
-            document.getElementById("telegramId").value = '';
+            if (data.ok) {
+                alert("پیام شما با موفقیت ارسال شد! 😊");
+            } else {
+                alert("مشکلی در ارسال پیام پیش آمده، لطفاً دوباره امتحان کنید.");
+            }
         })
         .catch(error => {
             console.error("Error:", error);
@@ -267,6 +259,5 @@
         });
     }
 </script>
-
 </body>
 </html>
