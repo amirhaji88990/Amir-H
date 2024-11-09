@@ -130,7 +130,7 @@
     <div id="messageSection" style="display:none;">
         <h2>چه پیامی برای پشتیبان داری؟</h2>
         <textarea id="userMessage" placeholder="پیام خود را بنویسید..."></textarea>
-        <button onclick="sendMessage()">ارسال پیام به تلگرام</button>
+        <button onclick="sendMessage()">ارسال پیام</button>
     </div>
 </div>
 
@@ -174,7 +174,7 @@
         const botToken = '7870121961:AAGExjTsLbhohXAY6efTNlfKuIlqo_1vL_Q';
         const chatId = '1418929811';
 
-        // ارسال پیام به تلگرام
+        // ارسال پیام 
         const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
         const data = {
             chat_id: chatId,
