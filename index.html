@@ -182,19 +182,34 @@
         const botToken = '7870121961:AAGExjTsLbhohXAY6efTNlfKuIlqo_1vL_Q';
         const chatId = '1418929811';
 
-        // ارسال پیام به تلگرام
-        const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
-        const data = {
+        // ارسال پیام اولیه برای اعلام پیام جدید از کاربر
+        const initialMessage = {
             chat_id: chatId,
-            text: `پیامی که کاربر ارسال کرده: ${message}\n\nآیدی تلگرام: ${telegramId}`,
+            text: "📩 پیامی ارسال شده از کاربر:"
         };
 
-        fetch(url, {
+        // پیام کاربر با آیدی تلگرام
+        const userMessage = {
+            chat_id: chatId,
+            text: `پیام کاربر:\n\n${message}\n\nآیدی تلگرام: ${telegramId}`
+        };
+
+        // ارسال پیام‌ها به ترتیب
+        fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data),
+            body: JSON.stringify(initialMessage),
+        })
+        .then(() => {
+            return fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userMessage),
+            });
         })
         .then(response => response.json())
         .then(data => {
