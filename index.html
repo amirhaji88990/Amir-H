@@ -130,7 +130,7 @@
     <div id="messageSection" style="display:none;">
         <h2>چه پیامی برای پشتیبان داری؟</h2>
         <textarea id="userMessage" placeholder="پیام خود را بنویسید..."></textarea>
-        <button onclick="sendMessage()">ارسال پیام</button>
+        <button onclick="sendMessage()">ارسال پیام به تلگرام</button>
     </div>
 </div>
 
@@ -144,6 +144,8 @@
         "88": `چه پیامی برای پشتیبان داری؟`,
     };
 
+    let messageDisplayed = false; // متغیر برای بررسی نمایش پیام تنها یکبار
+
     function processCode() {
         const userInput = document.getElementById('userInput').value;
         const errorMessage = document.getElementById('errorMessage');
@@ -155,9 +157,10 @@
 
         if (responses[userInput]) {
             responseMessage.innerHTML = `پاسخ شما:<br><br>${responses[userInput]}`;
-            if (userInput == "88") {
-                // نمایش قسمت پیام
+            if (userInput == "88" && !messageDisplayed) {
+                // نمایش قسمت پیام فقط در بار اول
                 messageSection.style.display = "block";
+                messageDisplayed = true; // بعد از نمایش پیام، از نمایش دوباره جلوگیری می‌کنیم
             }
         } else {
             errorMessage.textContent = 'عذرخواهم، هم‌چین رمزی در سیستم ثبت نشده است!';
@@ -171,7 +174,7 @@
         const botToken = '7870121961:AAGExjTsLbhohXAY6efTNlfKuIlqo_1vL_Q';
         const chatId = '1418929811';
 
-        // ارسال پیام
+        // ارسال پیام به تلگرام
         const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
         const data = {
             chat_id: chatId,
