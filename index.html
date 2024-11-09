@@ -66,10 +66,24 @@
             font-size: 1em;
             outline: none;
             transition: border-color 0.3s ease;
+            position: relative;
         }
 
         input:focus, textarea:focus {
             border-color: #2575fc;
+        }
+
+        input::before, textarea::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            background: linear-gradient(45deg, #ff005a, #ffbd44, #3aff75, #6a11cb, #00eaff, #ff005a);
+            border-radius: 8px;
+            z-index: -1;
+            animation: rotateBorder 5s linear infinite;
         }
 
         button {
@@ -91,7 +105,7 @@
             background-color: #28a745;
         }
 
-        /* استایل رنگارنگ و متحرک */
+        /* استایل رنگارنگ و متحرک برای دکمه */
         button::before {
             content: '';
             position: absolute;
@@ -169,7 +183,7 @@
         "3": `👇👇ipv4<br><br>10.202.10.10<br><br>162.25.150.89<br><br>این کد فقط ipv4 هستش و ipv6 رو خاموش کنید`,
         "543": `هرکی عدد 543 وارد کنه یک گی هستش<br>و الان این تویی که این عدد رو وارد کردی<br>و الان فقط تنها میتونم بهت بگم که خاک تو سره گی بدبختت`,
         "88": `چه پیامی برای پشتیبان داری؟`,
-        "80": `عه علی کاظوم(علی کاظم)<br>واقعا خیلی خوش اومدی علی کاظم جون<br>علی پیری کله کی...
+        "80": `عه علی کاظوم(علی کاظم)<br>واقعا خیلی خوش اومدی علی کاظم جون<br>علی پیری کله کی...`
     };
 
     let messageDisplayed = false;
