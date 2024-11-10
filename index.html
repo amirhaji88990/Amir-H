@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ورود رمز</title>
     <style>
+        /* استایل‌های مربوط به صفحه */
         * {
             box-sizing: border-box;
         }
@@ -73,19 +74,6 @@
             border-color: #2575fc;
         }
 
-        input::before, textarea::before {
-            content: '';
-            position: absolute;
-            top: -4px;
-            left: -4px;
-            right: -4px;
-            bottom: -4px;
-            background: linear-gradient(45deg, #ff005a, #ffbd44, #3aff75, #6a11cb, #00eaff, #ff005a);
-            border-radius: 8px;
-            z-index: -1;
-            animation: rotateBorder 5s linear infinite;
-        }
-
         button {
             position: relative;
             width: 100%;
@@ -99,47 +87,10 @@
             overflow: hidden;
             transition: background-color 0.3s ease;
             z-index: 1;
-            animation: blinkEffect 1s infinite alternate;
         }
 
         button:hover {
             background-color: #28a745;
-        }
-
-        button::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #ff005a, #ffbd44, #3aff75, #6a11cb, #00eaff, #ff005a);
-            border-radius: 8px;
-            z-index: -1;
-            animation: rotateBorder 5s linear infinite;
-        }
-
-        /* انیمیشن چرخش دور دکمه */
-        @keyframes rotateBorder {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* انیمیشن چشمک زن (کاهش و افزایش اندازه) */
-        @keyframes blinkEffect {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.1);
-            }
-            100% {
-                transform: scale(1);
-            }
         }
 
         .error {
@@ -212,12 +163,18 @@
 
         if (responses[userInput]) {
             responseMessage.innerHTML = `پاسخ شما:<br><br>${responses[userInput]}`;
-            if (userInput == "88" && !messageDisplayed) {
+            
+            if (userInput === "88" && !messageDisplayed) {
                 messageSection.style.display = "block";
                 messageDisplayed = true;
+            } else if (userInput !== "88") {
+                messageSection.style.display = "none";
+                messageDisplayed = false;
             }
         } else {
             errorMessage.textContent = 'عذرخواهم، هم‌چین رمزی در سیستم ثبت نشده است!';
+            messageSection.style.display = "none";
+            messageDisplayed = false;
         }
     }
 
@@ -230,8 +187,8 @@
             return;
         }
 
-        const botToken = '7870121961:AAGExjTsLbhohXAY6efTNlfKuIlqo_1vL_Q'; // توکن ربات شما
-        const chatId = '1418929811'; // آیدی چت شما
+        const botToken = '7870121961:AAGExjTsLbhohXAY6efTNlfKuIlqo_1vL_Q';
+        const chatId = '1418929811';
 
         const initialMessage = {
             chat_id: chatId,
