@@ -188,19 +188,29 @@
             return;
         }
 
-        const userMessage = `پیام کاربر:<br><br>${message}<br><br>آیدی تلگرام: ${telegramId}`;
         const botToken = "7870121961:AAGExjTsLbhohXAY6efTNlfKuIlqo_1vL_Q";
+        const text = `پیام کاربر:<br><br>${message}<br><br>آیدی تلگرام: ${telegramId}`;
 
-        fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${telegramId}&text=${encodeURIComponent(userMessage)}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.ok) {
-                    alert("پیام با موفقیت ارسال شد!");
-                } else {
-                    alert("مشکلی در ارسال پیام پیش آمد. لطفاً دوباره تلاش کنید.");
-                }
+        fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                chat_id: telegramId,
+                text: text,
+                parse_mode: 'HTML'
             })
-            .catch(error => console.error("Error:", error));
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.ok) {
+                alert("پیام با موفقیت ارسال شد!");
+            } else {
+                alert("مشکلی در ارسال پیام پیش آمد. لطفاً دوباره تلاش کنید.");
+            }
+        })
+        .catch(error => console.error("Error:", error));
     }
 </script>
 
