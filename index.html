@@ -15,8 +15,7 @@
             direction: rtl;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #4B79A1, #283E51); /* تغییر رنگ پس‌زمینه */
-            background-size: cover;
+            overflow: hidden; /* جلوگیری از اسکرول */
             height: 100vh;
             display: flex;
             justify-content: center;
@@ -24,105 +23,42 @@
             flex-direction: column;
         }
 
-        .header {
-            text-align: center;
-            font-size: 2em;
-            margin-bottom: 10px;
-            color: #fff;
-            font-weight: bold;
-            animation: fadeIn 2s ease;
+        /* تنظیمات ویدیو پس‌زمینه */
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1; /* قرار گرفتن ویدیو در پس‌زمینه */
         }
 
-        .subheader {
-            text-align: center;
-            font-size: 1.2em;
-            margin-bottom: 30px;
+        .header, .subheader, .container {
+            position: relative; /* تنظیم به جهت دیده شدن محتوا روی ویدیو */
+            z-index: 1;
             color: #fff;
-            font-weight: bold;
         }
 
         .container {
-            background-color: rgba(0, 123, 255, 0.9);
+            background-color: rgba(0, 123, 255, 0.7); /* ایجاد پس‌زمینه نیمه شفاف برای وضوح بهتر */
             padding: 20px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             width: 100%;
             max-width: 300px;
-            overflow-y: auto;
-        }
-
-        h2 {
-            text-align: center;
-            color: #fff;
-            margin-bottom: 20px;
-            font-size: 1.5em;
-        }
-
-        input, textarea {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            font-size: 1em;
-            outline: none;
-            transition: border-color 0.3s ease;
-            position: relative;
-        }
-
-        input:focus, textarea:focus {
-            border-color: #2575fc;
-        }
-
-        button {
-            position: relative;
-            width: 100%;
-            padding: 12px;
-            background-color: #6a11cb;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 1.1em;
-            overflow: hidden;
-            transition: background-color 0.3s ease;
-            z-index: 1;
-        }
-
-        button:hover {
-            background-color: #28a745;
-        }
-
-        .error {
-            color: red;
-            text-align: center;
-            margin-top: 10px;
-            font-size: 1.2em;
-        }
-
-        .response {
-            text-align: center;
-            margin-top: 20px;
-            color: #fff;
-            font-size: 1.5em;
-            overflow-wrap: break-word;
-            white-space: pre-wrap;
-        }
-
-        .green {
-            color: #fff;
-        }
-
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-<div class="header">به وب سایت من خیلی خوش آمدید!</div>
+<!-- ویدیو پس‌زمینه -->
+<video class="background-video" autoplay loop muted playsinline>
+    <source src="background.mp4" type="video/mp4">
+    مرورگر شما از ویدیو پشتیبانی نمی‌کند.
+</video>
 
+<div class="header">به وب سایت من خیلی خوش آمدید!</div>
 <div class="subheader">🌟 طراحی شده توسط حاج امیر 🌟</div>
 
 <div class="container">
@@ -131,17 +67,10 @@
     <button onclick="processCode()">ارسال</button>
     <div class="error" id="errorMessage"></div>
     <div class="response" id="responseMessage"></div>
-
-    <div id="messageSection" style="display:none;">
-        <h2>برای اینکه پشتیبان بتونه بهت کمک کنه اول سوال تو بپرس و بعد ایدی تلگرام تو بزار تا بیاد پی وی و بهت کمک کنه<br>راستی یادت نره که حتما ایدی تو وارد کنی وگرنه پیامت برا پشتیبان ارسال نمیشه</h2>
-        <textarea id="userMessage" placeholder="پیام خود را بنویسید..."></textarea>
-        <input type="text" id="telegramId" placeholder="آیدی تلگرام خود را وارد کنید...">
-        <button onclick="sendMessage()">ارسال پیام</button>
-    </div>
 </div>
 
 <script>
-    // اسکریپت جاوااسکریپت
+    // اسکریپت جاوااسکریپت برای پردازش
 </script>
 
 </body>
