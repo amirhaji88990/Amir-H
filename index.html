@@ -5,57 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ورود رمز</title>
     <style>
-        /* استایل‌های مربوط به صفحه */
-        * {
-            box-sizing: border-box;
-        }
-
+        * { box-sizing: border-box; }
+        
         body {
             font-family: 'Arial', sans-serif;
             direction: rtl;
             margin: 0;
             padding: 0;
             background: linear-gradient(45deg, #3498db, #2ecc71);
-            background-size: cover;
-            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
+            height: 100vh;
+            background-size: cover;
         }
 
-        .header {
+        .header, .subheader, h2 {
             text-align: center;
-            font-size: 2em;
-            margin-bottom: 10px;
             color: #fff;
             font-weight: bold;
             animation: fadeIn 2s ease;
         }
 
-        .subheader {
-            text-align: center;
-            font-size: 1.2em;
-            margin-bottom: 30px;
-            color: #fff;
-            font-weight: bold;
-        }
+        .header { font-size: 2em; margin-bottom: 10px; }
+        .subheader { font-size: 1.2em; margin-bottom: 30px; }
+        h2 { margin-bottom: 20px; font-size: 1.5em; }
 
         .container {
             background-color: rgba(0, 123, 255, 0.9);
             padding: 20px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            width: 100%;
             max-width: 300px;
-            overflow-y: auto;
-        }
-
-        h2 {
-            text-align: center;
-            color: #fff;
-            margin-bottom: 20px;
-            font-size: 1.5em;
+            width: 100%;
         }
 
         input, textarea {
@@ -67,152 +50,110 @@
             font-size: 1em;
             outline: none;
             transition: border-color 0.3s ease;
-            position: relative;
-        }
-
-        input:focus, textarea:focus {
-            border-color: #2575fc;
         }
 
         button {
-            position: relative;
             width: 100%;
             padding: 12px;
             background-color: #6a11cb;
             color: white;
             border: none;
             border-radius: 6px;
-            cursor: pointer;
             font-size: 1.1em;
-            overflow: hidden;
+            cursor: pointer;
             transition: background-color 0.3s ease;
-            z-index: 1;
         }
 
-        button:hover {
-            background-color: #28a745;
-        }
-
-        .error {
-            color: red;
-            text-align: center;
-            margin-top: 10px;
-            font-size: 1.2em;
-        }
-
-        .response {
-            text-align: center;
-            margin-top: 20px;
-            color: #fff;
-            font-size: 1.5em;
-            overflow-wrap: break-word;
-            white-space: pre-wrap;
-        }
-
-        .green {
-            color: #fff;
-        }
-
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
+        button:hover { background-color: #28a745; }
+        .error { color: red; text-align: center; font-size: 1.2em; }
+        .response { text-align: center; color: #fff; font-size: 1.5em; white-space: pre-wrap; }
+        @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
     </style>
 </head>
+
 <body>
+    <div class="header">به وب سایت من خیلی خوش آمدید!</div>
+    <div class="subheader">🌟 طراحی شده توسط حاج امیر 🌟</div>
 
-<div class="header">به وب سایت من خیلی خوش آمدید!</div>
+    <div class="container">
+        <h2>ورود رمز</h2>
+        <input type="text" id="userInput" placeholder="رمز خود را وارد کنید">
+        <button onclick="processCode()">ارسال</button>
+        <div class="error" id="errorMessage"></div>
+        <div class="response" id="responseMessage"></div>
 
-<div class="subheader">🌟 طراحی شده توسط حاج امیر 🌟</div>
-
-<div class="container">
-    <h2>ورود رمز</h2>
-    <input type="text" id="userInput" placeholder="رمز خود را وارد کنید">
-    <button onclick="processCode()">ارسال</button>
-    <div class="error" id="errorMessage"></div>
-    <div class="response" id="responseMessage"></div>
-
-    <div id="messageSection" style="display:none;">
-        <h2>برای اینکه پشتیبان بتونه بهت کمک کنه اول سوال تو بپرس و بعد ایدی تلگرام تو بزار تا بیاد پی وی و بهت کمک کنه<br>راستی یادت نره که حتما ایدی تو وارد کنی وگرنه پیامت برا پشتیبان ارسال نمیشه</h2>
-        <textarea id="userMessage" placeholder="پیام خود را بنویسید..."></textarea>
-        <input type="text" id="telegramId" placeholder="آیدی تلگرام خود را وارد کنید...">
-        <button onclick="sendMessage()">ارسال پیام</button>
+        <div id="messageSection" style="display:none;">
+            <h2>برای کمک، ابتدا سوال خود و سپس آیدی تلگرام را وارد کنید</h2>
+            <textarea id="userMessage" placeholder="پیام خود را بنویسید..."></textarea>
+            <input type="text" id="telegramId" placeholder="آیدی تلگرام خود را وارد کنید...">
+            <button onclick="sendMessage()">ارسال پیام</button>
+        </div>
     </div>
-</div>
 
-<script>
-    const responses = {
-        "2": "ipv4👇👇<br><br>10.202.10.10<br><br>29.80.132.23<br><br>ipv6👇👇<br><br>609b:eafc:a86:218d:d104:27c1:dfa9:8543<br><br>662f:4efa:568c:4eb5:f16f:220:798d:4369<br><br>حتما قبلش دی ان اس تون رو پاک سازی دیتا بزنید<br>و بعد از اون هم گوشی رو به مدت 10 ثانیه روی حالت پرواز بزارید و بعد<br>کد هارو به ترتیب وارد کنید.<br>امید وارم که لذت ببرید🙏🗿",
-        "1": "سلام!<br>من امیرمهدی حاجی بیگلو هستم.<br>کلاس دهم-شبکه و نرم افزار<br>من متولد:<br>1388/5/15<br>هستم و خوشحالم که به وب سایت من اومدی.<br>موفق و شاد باشید! 🎉😊",
-        "5": "من از طرف دوستت اومدم یک چیزی بهت بگم<br>خودش روش نشد بهت بگه<br>من دیگه اومدم و گردن گرفتم که بهت بگم<br>اخه یک ادم چقدر میتونه نوب باشه ها؟<br>میدونی الان سیزن چندیم؟<br>بروز شو یکم الان یک بات از تو بهتر بازی میکنه",
-        "3": "👇👇ipv4<br><br>10.202.10.10<br><br>162.25.150.89<br><br>این کد فقط ipv4 هستش و ipv6 رو خاموش کنید",
-        "543": "هرکی عدد 543 وارد کنه یک گی هستش<br>و الان این تویی که این عدد رو وارد کردی<br>و الان فقط تنها میتونم بهت بگم که خاک تو سره گی بدبختت",
-        "88": "چه پیامی برای پشتیبان داری؟",
-        "80": "عه علی کاظوم(علی کاظم)<br>واقعا خیلی خوش اومدی علی کاظم جون<br>علی پیری کله کی..."
-    };
+    <script>
+        const responses = {
+            "2": "ipv4👇👇<br>10.202.10.10<br>29.80.132.23<br>ipv6👇👇<br>609b:eafc:a86:218d:d104:27c1:dfa9:8543<br>662f:4efa:568c:4eb5:f16f:220:798d:4369<br>حالت پرواز را ۱۰ ثانیه بگذارید.",
+            "1": "سلام!<br>من امیرمهدی حاجی بیگلو هستم.<br>کلاس دهم-شبکه و نرم افزار<br>متولد: 1388/5/15<br>موفق باشید!",
+            "5": "از طرف دوستت پیامی داری:<br>یکم بروز شو، حتی یک بات هم از تو بهتر بازی میکنه!",
+            "3": "ipv4👇👇<br>10.202.10.10<br>162.25.150.89<br>این کد فقط ipv4 است و ipv6 را خاموش کنید.",
+            "543": "کسانی که عدد 543 وارد کنند، گی هستند! (شما اکنون همین عدد را وارد کرده‌اید).",
+            "88": "چه پیامی برای پشتیبان دارید؟",
+            "80": "علی کاظم خوش اومدی! خیلی خوشحالیم که اینجا هستی."
+        };
 
-    let messageDisplayed = false;
+        let messageDisplayed = false;
 
-    function processCode() {
-        const userInput = document.getElementById('userInput').value;
-        const errorMessage = document.getElementById('errorMessage');
-        const responseMessage = document.getElementById('responseMessage');
-        const messageSection = document.getElementById('messageSection');
+        function processCode() {
+            const userInput = document.getElementById('userInput').value;
+            const errorMessage = document.getElementById('errorMessage');
+            const responseMessage = document.getElementById('responseMessage');
+            const messageSection = document.getElementById('messageSection');
 
-        errorMessage.textContent = '';
-        responseMessage.innerHTML = '';
+            errorMessage.textContent = '';
+            responseMessage.innerHTML = '';
 
-        if (responses[userInput]) {
-            responseMessage.innerHTML = `پاسخ شما:<br><br>${responses[userInput]}`;
-            
-            if (userInput === "88" && !messageDisplayed) {
-                messageSection.style.display = "block";
-                messageDisplayed = true;
-            } else if (userInput !== "88") {
+            if (responses[userInput]) {
+                responseMessage.innerHTML = `پاسخ شما:<br><br>${responses[userInput]}`;
+
+                if (userInput === "88" && !messageDisplayed) {
+                    messageSection.style.display = "block";
+                    messageDisplayed = true;
+                } else if (userInput !== "88") {
+                    messageSection.style.display = "none";
+                    messageDisplayed = false;
+                }
+            } else {
+                errorMessage.textContent = 'رمز وارد شده اشتباه است!';
                 messageSection.style.display = "none";
                 messageDisplayed = false;
             }
-        } else {
-            errorMessage.textContent = 'عذرخواهم، هم‌چین رمزی در سیستم ثبت نشده است!';
-            messageSection.style.display = "none";
-            messageDisplayed = false;
-        }
-    }
-
-    function sendMessage() {
-        const message = document.getElementById("userMessage").value;
-        const telegramId = document.getElementById("telegramId").value;
-
-        if (!telegramId) {
-            document.getElementById("errorMessage").textContent = "لطفاً آیدی تلگرام خود را وارد کنید!";
-            return;
         }
 
-        const botToken = "7870121961:AAGExjTsLbhohXAY6efTNlfKuIlqo_1vL_Q";
-        const text = `پیام کاربر:<br><br>${message}<br><br>آیدی تلگرام: ${telegramId}`;
+        function sendMessage() {
+            const message = document.getElementById("userMessage").value;
+            const telegramId = document.getElementById("telegramId").value;
 
-        fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                chat_id: telegramId,
-                text: text,
-                parse_mode: 'HTML'
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.ok) {
-                alert("پیام با موفقیت ارسال شد!");
-            } else {
-                alert("مشکلی در ارسال پیام پیش آمد. لطفاً دوباره تلاش کنید.");
+            if (!telegramId) {
+                document.getElementById("errorMessage").textContent = "لطفاً آیدی تلگرام خود را وارد کنید!";
+                return;
             }
-        })
-        .catch(error => console.error("Error:", error));
-    }
-</script>
 
+            const botToken = "7870121961:AAGExjTsLbhohXAY6efTNlfKuIlqo_1vL_Q"; // توکن ربات شما
+            const chatId = "1418929811"; // چت آیدی شما
+            const text = `پیام کاربر:\n\n${message}\n\nآیدی تلگرام: ${telegramId}`;
+
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: chatId, text: text, parse_mode: 'HTML' })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) alert("پیام با موفقیت ارسال شد!");
+                else alert("مشکلی در ارسال پیام پیش آمد. لطفاً دوباره تلاش کنید.");
+            })
+            .catch(error => console.error("Error:", error));
+        }
+    </script>
 </body>
 </html>
