@@ -15,7 +15,7 @@
             direction: rtl;
             margin: 0;
             padding: 0;
-            background: linear-gradient(45deg, #3498db, #2ecc71); /* رنگ پس‌زمینه جدید */
+            background: linear-gradient(45deg, #3498db, #2ecc71);
             background-size: cover;
             height: 100vh;
             display: flex;
@@ -142,13 +142,13 @@
 
 <script>
     const responses = {
-        "2": "ipv4👇👇\\n\\n10.202.10.10\\n\\n29.80.132.23\\n\\nipv6👇👇\\n\\n609b:eafc:a86:218d:d104:27c1:dfa9:8543\\n\\n662f:4efa:568c:4eb5:f16f:220:798d:4369\\n\\nحتما قبلش دی ان اس تون رو پاک سازی دیتا بزنید\\nو بعد از اون هم گوشی رو به مدت 10 ثانیه روی حالت پرواز بزارید و بعد\\nکد هارو به ترتیب وارد کنید.\\nامید وارم که لذت ببرید🙏🗿",
-        "1": "سلام!\\nمن امیرمهدی حاجی بیگلو هستم.\\nکلاس دهم-شبکه و نرم افزار\\nمن متولد:\\n1388/5/15\\nهستم و خوشحالم که به وب سایت من اومدی.\\nموفق و شاد باشید! 🎉😊",
-        "5": "من از طرف دوستت اومدم یک چیزی بهت بگم\\nخودش روش نشد بهت بگه\\nمن دیگه اومدم و گردن گرفتم که بهت بگم\\nاخه یک ادم چقدر میتونه نوب باشه ها؟\\nمیدونی الان سیزن چندیم؟\\nبروز شو یکم الان یک بات از تو بهتر بازی میکنه",
-        "3": "👇👇ipv4\\n\\n10.202.10.10\\n\\n162.25.150.89\\n\\nاین کد فقط ipv4 هستش و ipv6 رو خاموش کنید",
-        "543": "هرکی عدد 543 وارد کنه یک گی هستش\\nو الان این تویی که این عدد رو وارد کردی\\nو الان فقط تنها میتونم بهت بگم که خاک تو سره گی بدبختت",
+        "2": "ipv4👇👇<br><br>10.202.10.10<br><br>29.80.132.23<br><br>ipv6👇👇<br><br>609b:eafc:a86:218d:d104:27c1:dfa9:8543<br><br>662f:4efa:568c:4eb5:f16f:220:798d:4369<br><br>حتما قبلش دی ان اس تون رو پاک سازی دیتا بزنید<br>و بعد از اون هم گوشی رو به مدت 10 ثانیه روی حالت پرواز بزارید و بعد<br>کد هارو به ترتیب وارد کنید.<br>امید وارم که لذت ببرید🙏🗿",
+        "1": "سلام!<br>من امیرمهدی حاجی بیگلو هستم.<br>کلاس دهم-شبکه و نرم افزار<br>من متولد:<br>1388/5/15<br>هستم و خوشحالم که به وب سایت من اومدی.<br>موفق و شاد باشید! 🎉😊",
+        "5": "من از طرف دوستت اومدم یک چیزی بهت بگم<br>خودش روش نشد بهت بگه<br>من دیگه اومدم و گردن گرفتم که بهت بگم<br>اخه یک ادم چقدر میتونه نوب باشه ها؟<br>میدونی الان سیزن چندیم؟<br>بروز شو یکم الان یک بات از تو بهتر بازی میکنه",
+        "3": "👇👇ipv4<br><br>10.202.10.10<br><br>162.25.150.89<br><br>این کد فقط ipv4 هستش و ipv6 رو خاموش کنید",
+        "543": "هرکی عدد 543 وارد کنه یک گی هستش<br>و الان این تویی که این عدد رو وارد کردی<br>و الان فقط تنها میتونم بهت بگم که خاک تو سره گی بدبختت",
         "88": "چه پیامی برای پشتیبان داری؟",
-        "80": "عه علی کاظوم(علی کاظم)\\nواقعا خیلی خوش اومدی علی کاظم جون\\nعلی پیری کله کی..."
+        "80": "عه علی کاظوم(علی کاظم)<br>واقعا خیلی خوش اومدی علی کاظم جون<br>علی پیری کله کی..."
     };
 
     let messageDisplayed = false;
@@ -163,7 +163,7 @@
         responseMessage.innerHTML = '';
 
         if (responses[userInput]) {
-            responseMessage.innerHTML = `پاسخ شما:\\n\\n${responses[userInput]}`;
+            responseMessage.innerHTML = `پاسخ شما:<br><br>${responses[userInput]}`;
             
             if (userInput === "88" && !messageDisplayed) {
                 messageSection.style.display = "block";
@@ -188,16 +188,10 @@
             return;
         }
 
-        const userMessage = {
-            message: `پیام کاربر:\\n\\n${message}\\n\\nآیدی تلگرام: ${telegramId}`
-        };
-
-        // اینجا باید کد ارسال پیام با استفاده از توکن ربات قرار گیرد
+        const userMessage = `پیام کاربر:<br><br>${message}<br><br>آیدی تلگرام: ${telegramId}`;
         const botToken = "7870121961:AAGExjTsLbhohXAY6efTNlfKuIlqo_1vL_Q";
-        const chatId = telegramId;
-        const text = encodeURIComponent(userMessage.message);
 
-        fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${text}`)
+        fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${telegramId}&text=${encodeURIComponent(userMessage)}`)
             .then(response => response.json())
             .then(data => {
                 if (data.ok) {
