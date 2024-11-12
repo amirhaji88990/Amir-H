@@ -141,7 +141,51 @@
 </div>
 
 <script>
-    // اسکریپت جاوااسکریپت
+    const responses = {
+        "1234": "خوش آمدید! رمز درست است.",
+        "0000": "این رمز به بخش پشتیبانی اختصاص دارد.",
+        "5678": "سلام! این یک پیام ویژه است.",
+        "9999": "این رمز برای دسترسی به امکانات خاص است."
+    };
+
+    function processCode() {
+        const userInput = document.getElementById('userInput').value;
+        const errorMessage = document.getElementById('errorMessage');
+        const responseMessage = document.getElementById('responseMessage');
+        const messageSection = document.getElementById('messageSection');
+
+        errorMessage.textContent = '';
+        responseMessage.innerHTML = '';
+
+        if (responses[userInput]) {
+            responseMessage.innerHTML = `پاسخ شما:\n\n${responses[userInput]}`;
+            
+            if (userInput === "0000") {
+                messageSection.style.display = "block";
+            } else {
+                messageSection.style.display = "none";
+            }
+        } else {
+            errorMessage.textContent = 'عذرخواهم، هم‌چین رمزی در سیستم ثبت نشده است!';
+            messageSection.style.display = "none";
+        }
+    }
+
+    function sendMessage() {
+        const message = document.getElementById("userMessage").value;
+        const telegramId = document.getElementById("telegramId").value;
+
+        if (!telegramId) {
+            document.getElementById("errorMessage").textContent = "لطفاً آیدی تلگرام خود را وارد کنید!";
+            return;
+        }
+
+        const userMessage = {
+            message: `پیام کاربر:\n\n${message}\n\nآیدی تلگرام: ${telegramId}`
+        };
+
+        // اینجا باید کد ارسال پیام یا ایمیل اضافه شود
+    }
 </script>
 
 </body>
