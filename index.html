@@ -65,8 +65,18 @@
         }
 
         button:hover { background-color: #28a745; }
+        
         .error { color: red; text-align: center; font-size: 1.2em; }
-        .response { text-align: center; color: #fff; font-size: 1.5em; white-space: pre-wrap; }
+        
+        .response {
+            text-align: center;
+            color: #fff;
+            font-size: 1.1em;
+            white-space: pre-line; /* نمایش خطوط زیر هم */
+            overflow-wrap: break-word; /* جلوگیری از بیرون زدن متن */
+            margin-top: 10px;
+        }
+        
         @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
     </style>
 </head>
@@ -138,8 +148,8 @@
                 return;
             }
 
-            const botToken = "7870121961:AAGExjTsLbhohXAY6efTNlfKuIlqo_1vL_Q"; // توکن ربات شما
-            const chatId = "1418929811"; // چت آیدی شما
+            const botToken = "YOUR_BOT_TOKEN"; // توکن ربات شما
+            const chatId = "YOUR_CHAT_ID"; // چت آیدی شما
             const text = `پیام کاربر:\n\n${message}\n\nآیدی تلگرام: ${telegramId}`;
 
             fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
