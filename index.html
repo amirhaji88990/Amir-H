@@ -102,10 +102,10 @@
 
     <script>
         const responses = {
-            "2": `ipv4👇👇<br><br>10.202.10.10<br><br>29.80.132.23<br><br>ipv6👇👇<br><br>609b:eafc:a86:218d:d104:27c1:dfa9:8543<br><br>662f:4efa:568c:4eb5:f16f:220:798d:4369<br><br>حتما قبل از استارت زدن DNS یک بار گوشی رو به مدت 10 ثانیه روی حالت پرواز بگذارید و بعد از بازی کردن لذت ببرید!`,
+            "2": `ipv4👇👇<br><span class="copy-text">10.202.10.10</span><br><span class="copy-text">29.80.132.23</span><br>ipv6👇👇<br><span class="copy-text">609b:eafc:a86:218d:d104:27c1:dfa9:8543</span><br><span class="copy-text">662f:4efa:568c:4eb5:f16f:220:798d:4369</span><br>حتما قبل از استارت زدن DNS یک بار گوشی رو به مدت 10 ثانیه روی حالت پرواز بگذارید و بعد از بازی کردن لذت ببرید!`,
             "1": `سلام!<br>من امیرمهدی حاجی بیگلو هستم.<br>کلاس دهم-شبکه و نرم افزار<br>متولد: 1388/5/15<br>موفق باشید!`,
             "5": `از طرف دوستت پیامی داری:<br>یکم بروز شو، حتی یک بات هم از تو بهتر بازی میکنه!`,
-            "3": `ipv4👇👇<br><br>10.202.10.10<br><br>162.25.150.89<br><br>این کد فقط ipv4 است و ipv6 را خاموش کنید.`,
+            "3": `ipv4👇👇<br><span class="copy-text">10.202.10.10</span><br><span class="copy-text">162.25.150.89</span><br>این کد فقط ipv4 است و ipv6 را خاموش کنید.`,
             "543": `از قدیم گفتن که...<br>هرکی عدد 543 رو وارد کنه یک گی هستش<br>و الان این تویی که این عدد رو وارد کردی<br>پس تو یک (گی هستی)<br>خاک تو سره گی ات کنم`,
             "88": `چه پیامی برای پشتیبان دارید؟`,
             "80": `علی کاظم خوش اومدی! خیلی خوشحالیم که اینجا هستی.`
@@ -164,6 +164,29 @@
             })
             .catch(error => console.error("Error:", error));
         }
+
+        // تابع کپی کردن متن
+        function copyText(event) {
+            const textToCopy = event.target.innerText;
+
+            // استفاده از API Clipboard برای کپی متن
+            navigator.clipboard.writeText(textToCopy)
+                .then(() => {
+                    alert("متن با موفقیت کپی شد!");
+                })
+                .catch(err => {
+                    alert("خطا در کپی متن: " + err);
+                });
+        }
+
+        // اضافه کردن رویداد کلیک برای کپی کردن متن
+        document.addEventListener('DOMContentLoaded', function() {
+            const copyElements = document.querySelectorAll('.copy-text');
+            
+            copyElements.forEach(element => {
+                element.addEventListener('click', copyText);
+            });
+        });
     </script>
 </body>
 </html>
