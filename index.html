@@ -19,6 +19,7 @@
             flex-direction: column;
             height: 100vh;
             background-size: cover;
+            overflow-y: auto; /* فعال کردن اسکرول عمودی */
         }
 
         .header, .subheader, h2 {
@@ -39,6 +40,8 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             max-width: 300px;
             width: 100%;
+            max-height: 80vh;  /* حداکثر ارتفاع */
+            overflow-y: auto;  /* فعال کردن اسکرول عمودی */
         }
 
         input, textarea {
@@ -75,6 +78,8 @@
             white-space: pre-line; /* نمایش خطوط زیر هم */
             overflow-wrap: break-word; /* جلوگیری از بیرون زدن متن */
             margin-top: 10px;
+            max-height: 200px; /* حداکثر ارتفاع */
+            overflow-y: auto;  /* فعال کردن اسکرول عمودی */
         }
         
         @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
