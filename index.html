@@ -72,8 +72,8 @@
             text-align: center;
             color: #fff;
             font-size: 1.1em;
-            white-space: pre-line; /* نمایش خطوط زیر هم */
-            overflow-wrap: break-word; /* جلوگیری از بیرون زدن متن */
+            white-space: pre-line;
+            overflow-wrap: break-word;
             margin-top: 10px;
         }
         
@@ -93,9 +93,8 @@
         <div class="response" id="responseMessage"></div>
 
         <div id="messageSection" style="display:none;">
-            <h2>برای کمک، ابتدا سوال خود و سپس آیدی تلگرام را وارد کنید</h2>
+            <h2>برای کمک، پیام خود را وارد کنید</h2>
             <textarea id="userMessage" placeholder="پیام خود را بنویسید..."></textarea>
-            <input type="text" id="telegramId" placeholder="آیدی تلگرام خود را وارد کنید...">
             <button onclick="sendMessage()">ارسال پیام</button>
         </div>
     </div>
@@ -139,21 +138,29 @@
 
         function sendMessage() {
             const message = document.getElementById("userMessage").value;
-            const telegramId = document.getElementById("telegramId").value;
 
-            if (!telegramId) {
-                document.getElementById("errorMessage").textContent = "لطفاً آیدی تلگرام خود را وارد کنید!";
+            if (!message) {
+                document.getElementById("errorMessage").textContent = "لطفاً پیام خود را وارد کنید!";
                 return;
             }
 
-            const botToken = "7870121961:AAGExjTsLbhohXAY6efTNlfKuIlqo_1vL_Q"; // توکن ربات شما
-            const chatId = "1418929811"; // چت آیدی شما
-            const text = `پیام کاربر:\n\n${message}\n\nآیدی تلگرام: ${telegramId}`;
+            const botToken = "7870121961:AAGExjTsLbhohXAY6efTNlfKuIlqo_1vL_Q";
+            const chatId = "1418929811";
+            const firstText = "پیام کاربر:|";
+            const secondText = `پیام کاربر:\n\n${message}`;
 
+            // ارسال پیام اول
             fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: chatId, text: text, parse_mode: 'HTML' })
+                body: JSON.stringify({ chat_id: chatId, text: firstText, parse_mode: 'HTML' })
+            });
+
+            // ارسال پیام دوم با پیام کاربر
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: chatId, text: secondText, parse_mode: 'HTML' })
             })
             .then(response => response.json())
             .then(data => {
