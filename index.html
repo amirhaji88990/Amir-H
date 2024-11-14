@@ -6,7 +6,7 @@
     <title>ورود رمز</title>
     <style>
         * { box-sizing: border-box; }
-
+        
         body {
             font-family: 'Arial', sans-serif;
             direction: rtl;
@@ -15,11 +15,10 @@
             background: linear-gradient(45deg, #3498db, #2ecc71);
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* تنظیم جهت عمودی */
+            align-items: center;
             flex-direction: column;
             height: 100vh;
             background-size: cover;
-            padding-top: 50px; /* فاصله از بالای صفحه */
         }
 
         .header, .subheader, h2 {
@@ -40,7 +39,6 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             max-width: 300px;
             width: 100%;
-            margin-top: 20px; /* فاصله از متن بالا */
         }
 
         input, textarea {
@@ -67,9 +65,9 @@
         }
 
         button:hover { background-color: #28a745; }
-
+        
         .error { color: red; text-align: center; font-size: 1.2em; }
-
+        
         .response {
             text-align: center;
             color: #fff;
@@ -78,61 +76,33 @@
             overflow-wrap: break-word;
             margin-top: 10px;
         }
-
+        
         @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
-
-        /* مخفی کردن محتوای سایت برای دستگاه‌های غیرموبایل */
-        .mobile-only {
-            display: block;
-        }
-
-        .desktop-block {
-            display: none;
-        }
-
-        @media only screen and (max-width: 768px) {
-            .mobile-only {
-                display: block;
-            }
-            .desktop-block {
-                display: none;
-            }
-        }
     </style>
 </head>
 
 <body>
-    <div class="mobile-only">
-        <div class="header">به وب سایت من خیلی خوش آمدید!</div>
-        <div class="subheader">🌟 طراحی شده توسط حاج امیر 🌟</div>
+    <div class="header">به وب سایت من خیلی خوش آمدید!</div>
+    <div class="subheader">🌟 طراحی شده توسط حاج امیر 🌟</div>
 
-        <!-- کادر آبی در اینجا قرار می‌گیرد -->
-        <div class="container">
-            <h2>ورود رمز</h2>
-            <input type="text" id="userInput" placeholder="رمز خود را وارد کنید">
-            <button onclick="processCode()">ارسال</button>
-            <div class="error" id="errorMessage"></div>
-            <div class="response" id="responseMessage"></div>
+    <div class="container">
+        <h2>ورود رمز</h2>
+        <input type="text" id="userInput" placeholder="رمز خود را وارد کنید">
+        <button onclick="processCode()">ارسال</button>
+        <div class="error" id="errorMessage"></div>
+        <div class="response" id="responseMessage"></div>
 
-            <div id="messageSection" style="display:none;">
-                <h2>برای کمک، پیام خود را وارد کنید</h2>
-                <textarea id="userMessage" placeholder="پیام خود را بنویسید..."></textarea>
-                <button onclick="sendMessage()">ارسال پیام</button>
-            </div>
+        <div id="messageSection" style="display:none;">
+            <h2>برای کمک، پیام خود را وارد کنید</h2>
+            <textarea id="userMessage" placeholder="پیام خود را بنویسید..."></textarea>
+            <button onclick="sendMessage()">ارسال پیام</button>
         </div>
-    </div>
-
-    <!-- صفحه نمایش برای دستگاه‌های غیر موبایل (لپ‌تاپ/کامپیوتر) -->
-    <div class="desktop-block">
-        <h2>این سایت فقط برای موبایل قابل دسترسی است!</h2>
-        <p>لطفاً از یک دستگاه موبایل برای دسترسی به سایت استفاده کنید.</p>
     </div>
 
     <script>
         // چک کردن اینکه آیا دستگاه موبایل است یا خیر
-        if (window.innerWidth > 768) {
-            // اگر دستگاه غیر موبایل است، کاربر را به صفحه دیگری هدایت می‌کنیم
-            window.location.href = "https://www.google.com";  // اینجا می‌توانید هر URL دیگری که می‌خواهید قرار دهید
+        if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            document.body.innerHTML = "<h2>این سایت فقط برای موبایل قابل دسترسی است!</h2><p>لطفاً از یک دستگاه موبایل استفاده کنید.</p>";
         }
 
         const responses = {
