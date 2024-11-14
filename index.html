@@ -153,13 +153,14 @@
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ chat_id: chatId, text: firstText, parse_mode: 'HTML' })
-            });
-
-            // ارسال پیام دوم با متن کاربر بدون عبارت "پیام کاربر:"
-            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: chatId, text: message, parse_mode: 'HTML' })
+            })
+            .then(() => {
+                // ارسال پیام دوم با متن کاربر بعد از ارسال پیام اول
+                return fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: chatId, text: message, parse_mode: 'HTML' })
+                });
             })
             .then(response => response.json())
             .then(data => {
