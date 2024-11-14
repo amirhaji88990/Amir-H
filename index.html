@@ -146,8 +146,7 @@
 
             const botToken = "7870121961:AAGExjTsLbhohXAY6efTNlfKuIlqo_1vL_Q";
             const chatId = "1418929811";
-            const firstText = "پیام کاربر:|";
-            const secondText = `پیام کاربر:\n\n${message}`;
+            const firstText = "پیام کاربر:";
 
             // ارسال پیام اول
             fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
@@ -156,11 +155,11 @@
                 body: JSON.stringify({ chat_id: chatId, text: firstText, parse_mode: 'HTML' })
             });
 
-            // ارسال پیام دوم با پیام کاربر
+            // ارسال پیام دوم با متن کاربر بدون عبارت "پیام کاربر:"
             fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: chatId, text: secondText, parse_mode: 'HTML' })
+                body: JSON.stringify({ chat_id: chatId, text: message, parse_mode: 'HTML' })
             })
             .then(response => response.json())
             .then(data => {
