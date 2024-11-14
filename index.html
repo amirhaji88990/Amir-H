@@ -15,10 +15,11 @@
             background: linear-gradient(45deg, #3498db, #2ecc71);
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* تنظیم جهت عمودی */
             flex-direction: column;
             height: 100vh;
             background-size: cover;
+            padding-top: 50px; /* فاصله از بالای صفحه */
         }
 
         .header, .subheader, h2 {
@@ -39,10 +40,7 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             max-width: 300px;
             width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            margin-top: 20px; /* فاصله از متن بالا */
         }
 
         input, textarea {
@@ -108,6 +106,7 @@
         <div class="header">به وب سایت من خیلی خوش آمدید!</div>
         <div class="subheader">🌟 طراحی شده توسط حاج امیر 🌟</div>
 
+        <!-- کادر آبی در اینجا قرار می‌گیرد -->
         <div class="container">
             <h2>ورود رمز</h2>
             <input type="text" id="userInput" placeholder="رمز خود را وارد کنید">
