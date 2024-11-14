@@ -6,7 +6,7 @@
     <title>ورود رمز</title>
     <style>
         * { box-sizing: border-box; }
-        
+
         body {
             font-family: 'Arial', sans-serif;
             direction: rtl;
@@ -65,9 +65,9 @@
         }
 
         button:hover { background-color: #28a745; }
-        
+
         .error { color: red; text-align: center; font-size: 1.2em; }
-        
+
         .response {
             text-align: center;
             color: #fff;
@@ -76,30 +76,62 @@
             overflow-wrap: break-word;
             margin-top: 10px;
         }
-        
+
         @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+
+        /* مخفی کردن محتوای سایت برای دستگاه‌های غیرموبایل */
+        .mobile-only {
+            display: block;
+        }
+
+        .desktop-block {
+            display: none;
+        }
+
+        @media only screen and (max-width: 768px) {
+            .mobile-only {
+                display: block;
+            }
+            .desktop-block {
+                display: none;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <div class="header">به وب سایت من خیلی خوش آمدید!</div>
-    <div class="subheader">🌟 طراحی شده توسط حاج امیر 🌟</div>
+    <div class="mobile-only">
+        <div class="header">به وب سایت من خیلی خوش آمدید!</div>
+        <div class="subheader">🌟 طراحی شده توسط حاج امیر 🌟</div>
 
-    <div class="container">
-        <h2>ورود رمز</h2>
-        <input type="text" id="userInput" placeholder="رمز خود را وارد کنید">
-        <button onclick="processCode()">ارسال</button>
-        <div class="error" id="errorMessage"></div>
-        <div class="response" id="responseMessage"></div>
+        <div class="container">
+            <h2>ورود رمز</h2>
+            <input type="text" id="userInput" placeholder="رمز خود را وارد کنید">
+            <button onclick="processCode()">ارسال</button>
+            <div class="error" id="errorMessage"></div>
+            <div class="response" id="responseMessage"></div>
 
-        <div id="messageSection" style="display:none;">
-            <h2>برای کمک، پیام خود را وارد کنید</h2>
-            <textarea id="userMessage" placeholder="پیام خود را بنویسید..."></textarea>
-            <button onclick="sendMessage()">ارسال پیام</button>
+            <div id="messageSection" style="display:none;">
+                <h2>برای کمک، پیام خود را وارد کنید</h2>
+                <textarea id="userMessage" placeholder="پیام خود را بنویسید..."></textarea>
+                <button onclick="sendMessage()">ارسال پیام</button>
+            </div>
         </div>
     </div>
 
+    <!-- صفحه نمایش برای دستگاه‌های غیر موبایل (لپ‌تاپ/کامپیوتر) -->
+    <div class="desktop-block">
+        <h2>این سایت فقط برای موبایل قابل دسترسی است!</h2>
+        <p>لطفاً از یک دستگاه موبایل برای دسترسی به سایت استفاده کنید.</p>
+    </div>
+
     <script>
+        // چک کردن اینکه آیا دستگاه موبایل است یا خیر
+        if (window.innerWidth > 768) {
+            // اگر دستگاه غیر موبایل است، کاربر را به صفحه دیگری هدایت می‌کنیم
+            window.location.href = "https://www.google.com";  // اینجا می‌توانید هر URL دیگری که می‌خواهید قرار دهید
+        }
+
         const responses = {
             "2": `ipv4👇👇<br><br>10.202.10.10<br><br>29.80.132.23<br><br>ipv6👇👇<br><br>609b:eafc:a86:218d:d104:27c1:dfa9:8543<br><br>662f:4efa:568c:4eb5:f16f:220:798d:4369<br><br>حتما قبل از استارت زدن DNS یک بار گوشی رو به مدت 10 ثانیه روی حالت پرواز بگذارید و بعد از بازی کردن لذت ببرید!`,
             "1": `سلام!<br>من امیرمهدی حاجی بیگلو هستم.<br>کلاس دهم-شبکه و نرم افزار<br>متولد: 1388/5/15<br>موفق باشید!`,
