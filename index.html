@@ -110,8 +110,10 @@
         </div>
     </div>
 
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-    <script>
+    <!-- استفاده از SDK جدید EmailJS -->
+    <script type="module">
+        import emailjs from 'https://cdn.emailjs.com/dist/email.min.js';
+        
         emailjs.init('p4vTW0b9Jfj_tAtSQ');  // Public Key خود را اینجا وارد کنید
 
         const responses = {
@@ -120,7 +122,7 @@
             "3": `ipv4👇👇<br><br>10.202.10.10<br><br>162.25.150.89<br><br>این کد فقط ipv4 است و ipv6 را خاموش کنید.`,
             "543": `از قدیم گفتن که...<br>هرکی عدد 543 رو وارد کنه یک گی هستش<br>و الان این تویی که این عدد رو وارد کردی<br>پس تو یک (گی هستی)<br>خاک تو سره گی ات کنم`,
             "88": `چه پیامی برای پشتیبان دارید؟`,
-            "90": `چه پیامی برای پشتیبان داری؟`
+            "90": `لطفاً پیام خود را وارد کنید و آن را به ایمیل ما ارسال کنید!`
         };
 
         let messageDisplayed = false;
@@ -163,7 +165,7 @@
             const message = document.getElementById("userMessage").value;
 
             if (!message) {
-                document.getElementById("errorMessage").textContent = "چه پیامی برای پشتیبان داری؟";
+                document.getElementById("errorMessage").textContent = "لطفاً پیام خود را وارد کنید!";
                 return;
             }
 
@@ -174,7 +176,7 @@
             const message = document.getElementById("userMessage90").value;
 
             if (!message) {
-                document.getElementById("errorMessage").textContent = "لطفا پیام خودت رو وارد کن و برای پشتیبان ارسالش کن!";
+                document.getElementById("errorMessage").textContent = "لطفاً پیام خود را وارد کنید!";
                 return;
             }
 
