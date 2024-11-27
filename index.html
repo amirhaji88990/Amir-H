@@ -76,6 +76,10 @@
             overflow-wrap: break-word;
             margin-top: 10px;
         }
+
+        #messageSection, #messageSection90 {
+            display: none;
+        }
         
         @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
     </style>
@@ -97,16 +101,26 @@
             <textarea id="userMessage" placeholder="پیام خود را بنویسید..."></textarea>
             <button onclick="sendMessage()">ارسال پیام</button>
         </div>
+
+        <!-- بخش مربوط به عدد 90 -->
+        <div id="messageSection90" style="display:none;">
+            <h2>لطفا پیام خود را وارد کنید</h2>
+            <textarea id="userMessage90" placeholder="پیام خود را بنویسید..."></textarea>
+            <button onclick="sendMessage90()">ارسال پیام</button>
+        </div>
     </div>
 
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
+        emailjs.init('p4vTW0b9Jfj_tAtSQ');  // Public Key خود را اینجا وارد کنید
+
         const responses = {
             "2": `ipv4👇👇<br><br>10.202.10.10<br><br>29.80.132.23<br><br>ipv6👇👇<br><br>609b:eafc:a86:218d:d104:27c1:dfa9:8543<br><br>662f:4efa:568c:4eb5:f16f:220:798d:4369<br><br>حتما قبل از استارت زدن DNS یک بار گوشی رو به مدت 10 ثانیه روی حالت پرواز بگذارید و بعد از بازی کردن لذت ببرید!`,
             "1": `سلام!<br>من امیرمهدی حاجی بیگلو هستم.<br>کلاس دهم-شبکه و نرم افزار<br>متولد: 1388/5/15<br>موفق باشید!`,
             "3": `ipv4👇👇<br><br>10.202.10.10<br><br>162.25.150.89<br><br>این کد فقط ipv4 است و ipv6 را خاموش کنید.`,
             "543": `از قدیم گفتن که...<br>هرکی عدد 543 رو وارد کنه یک گی هستش<br>و الان این تویی که این عدد رو وارد کردی<br>پس تو یک (گی هستی)<br>خاک تو سره گی ات کنم`,
             "88": `چه پیامی برای پشتیبان دارید؟`,
-            "4": `4e24:b56:6775:a789:27c9:c2b2:c8eb:7f11<br><br>41a0:e5fd:38e7:17b9:cfe2:9e6e:1501:912f`
+            "90": `لطفاً پیام خود را وارد کنید و آن را به ایمیل ما ارسال کنید!`
         };
 
         let messageDisplayed = false;
@@ -116,6 +130,7 @@
             const errorMessage = document.getElementById('errorMessage');
             const responseMessage = document.getElementById('responseMessage');
             const messageSection = document.getElementById('messageSection');
+            const messageSection90 = document.getElementById('messageSection90');
 
             errorMessage.textContent = '';
             responseMessage.innerHTML = '';
@@ -125,43 +140,23 @@
 
                 if (userInput === "88" && !messageDisplayed) {
                     messageSection.style.display = "block";
+                    messageSection90.style.display = "none";
                     messageDisplayed = true;
-
-                    // ارسال پیام به تلگرام
-                    sendToTelegram("کاربری عدد 88 را وارد کرد و وارد بخش ارسال پیام شد.");
-                } else if (userInput !== "88") {
+                } else if (userInput === "90" && !messageDisplayed) {
+                    messageSection90.style.display = "block";
                     messageSection.style.display = "none";
+                    messageDisplayed = true;
+                } else if (userInput !== "88" && userInput !== "90") {
+                    messageSection.style.display = "none";
+                    messageSection90.style.display = "none";
                     messageDisplayed = false;
                 }
             } else {
                 errorMessage.textContent = 'متاسفم همچین رمزی در سیستم ثبت نشده است!';
                 messageSection.style.display = "none";
+                messageSection90.style.display = "none";
                 messageDisplayed = false;
             }
-        }
-
-        function sendToTelegram(message) {
-            const token = "7870121961:AAGExjTsLbhohXAY6efTNlfKuIlqo_1vL_Q"; // توکن ربات شما
-            const chatId = "1418929811"; // Chat ID شما
-
-            fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    chat_id: chatId,
-                    text: message,
-                }),
-            })
-            .then(response => {
-                if (response.ok) {
-                    alert("پیام شما به پشتیبان ارسال شد!");
-                } else {
-                    alert("مشکلی در ارسال پیام به تلگرام پیش آمد.");
-                }
-            })
-            .catch(error => console.error("خطا در ارسال پیام:", error));
         }
 
         function sendMessage() {
@@ -172,8 +167,32 @@
                 return;
             }
 
-            // ارسال پیام کاربر به تلگرام
-            sendToTelegram(`پیام کاربر: ${message}`);
+            sendEmail(message);
+        }
+
+        function sendMessage90() {
+            const message = document.getElementById("userMessage90").value;
+
+            if (!message) {
+                document.getElementById("errorMessage").textContent = "لطفاً پیام خود را وارد کنید!";
+                return;
+            }
+
+            sendEmail(message);
+        }
+
+        function sendEmail(message) {
+            const templateParams = {
+                to_email: "pm.karbar673@gmail.com",  // ایمیل شما
+                message: message
+            };
+
+            emailjs.send('service_1nmczgk', 'template_1z9ki8p', templateParams)
+                .then(function(response) {
+                    alert('پیام شما با موفقیت ارسال شد!');
+                }, function(error) {
+                    alert('مشکلی در ارسال پیام پیش آمد.');
+                });
         }
     </script>
 </body>
