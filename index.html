@@ -1,180 +1,547 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ورود رمز</title>
+    <title>صفحه جادویی من</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        * { box-sizing: border-box; }
-        
-        body {
-            font-family: 'Arial', sans-serif;
-            direction: rtl;
+        * {
             margin: 0;
             padding: 0;
-            background: linear-gradient(45deg, #3498db, #2ecc71);
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 30px;
+            font-family: 'Amiri', serif;
+            background: linear-gradient(-45deg, #FF0000, #4169E1, #FFD700, #800080, #40E0D0);
+            background-size: 500% 500%;
+            animation: gradient 15s ease infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            25% {
+                background-position: 50% 100%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            75% {
+                background-position: 50% 0%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .main-wrapper {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 20px;
+            padding-right: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 15px 25px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            transform: translateY(0);
+            animation: gentleFloat 8s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
-            height: 100vh;
-            background-size: cover;
+            order: 3;
         }
 
-        .header, .subheader, h2 {
-            text-align: center;
-            color: #fff;
-            font-weight: bold;
-            animation: fadeIn 2s ease;
-        }
-
-        .header { font-size: 2em; margin-bottom: 10px; }
-        .subheader { font-size: 1.2em; margin-bottom: 30px; }
-        h2 { margin-bottom: 20px; font-size: 1.5em; }
-
-        .container {
-            background-color: rgba(0, 123, 255, 0.9);
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            max-width: 300px;
-            width: 100%;
-        }
-
-        input, textarea {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            font-size: 1em;
-            outline: none;
-            transition: border-color 0.3s ease;
-        }
-
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #6a11cb;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 1.1em;
+        .robot-container {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 15px 25px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 100px;
+            transform: translateY(0);
+            animation: gentleFloat 8s ease-in-out infinite;
         }
 
-        button:hover { background-color: #28a745; }
-        
-        .error { color: red; text-align: center; font-size: 1.2em; }
-        
-        .response {
-            text-align: center;
-            color: #fff;
-            font-size: 1.1em;
-            white-space: pre-line;
-            overflow-wrap: break-word;
-            margin-top: 10px;
+        .robot-container:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.05);
         }
-        
-        @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+
+        @keyframes gentleFloat {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .bismillah {
+            color: white;
+            font-size: 1.5em;
+            text-align: center;
+            letter-spacing: 1px;
+            font-weight: normal;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: gentleGlow 3s ease-in-out infinite alternate;
+            line-height: 1;
+            margin: 0;
+            padding: 0;
+        }
+
+        .robot-text {
+            color: white;
+            font-size: 1.5em;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: gentleGlow 3s ease-in-out infinite alternate;
+            margin: 0;
+            padding: 0;
+            line-height: 1;
+        }
+
+        @keyframes gentleGlow {
+            from {
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+                            0 0 20px rgba(255, 255, 255, 0.5),
+                            0 0 30px rgba(64, 224, 208, 0.5);
+            }
+            to {
+                text-shadow: 0 0 15px rgba(255, 255, 255, 0.9),
+                            0 0 25px rgba(65, 105, 225, 0.6),
+                            0 0 35px rgba(64, 224, 208, 0.6);
+            }
+        }
+
+        .search-container {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 12px 20px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .search-container.show {
+            opacity: 1;
+        }
+
+        .search-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 10px 15px;
+            color: white;
+            font-family: 'Amiri', serif;
+            font-size: 1.2em;
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .search-button {
+            background: rgba(46, 204, 113, 0.4);
+            border: 1px solid rgba(46, 204, 113, 0.5);
+            border-radius: 15px;
+            padding: 10px 25px;
+            color: white;
+            font-family: 'Amiri', serif;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-button:hover {
+            background: rgba(46, 204, 113, 0.6);
+            transform: scale(1.05);
+        }
+
+        .search-icon {
+            color: white;
+            font-size: 1.2em;
+            animation: gentleGlow 3s ease-in-out infinite alternate;
+        }
+
+        .hidden-box {
+            display: none;
+            position: absolute;
+            top: calc(100% + 20px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 35px;
+            width: 100%;
+            max-width: 600px;
+            min-height: calc(100vh - 300px);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: white;
+            font-size: 1.5em;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .hidden-box.show {
+            display: block;
+            opacity: 1;
+        }
+
+        .content-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .result-box {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 25px 35px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            margin-top: 20px;
+            width: 100%;
+            max-width: 800px;
+            min-height: auto;
+            height: auto;
+            margin-left: auto;
+            margin-right: auto;
+            color: white;
+            font-size: 1.2em;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            display: none;
+            white-space: pre-line;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .result-box.show {
+            opacity: 1;
+            display: block;
+        }
+
+        .help-container {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 15px 25px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 100px;
+            transform: translateY(0);
+            animation: gentleFloat 8s ease-in-out infinite;
+        }
+
+        .help-container:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.05);
+        }
+
+        .help-text {
+            color: white;
+            font-size: 1.5em;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: gentleGlow 3s ease-in-out infinite alternate;
+            margin: 0;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .help-box {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 35px;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: white;
+            text-align: center;
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .help-box.show {
+            display: block;
+            opacity: 1;
+        }
+
+        .help-box .highlight {
+            font-size: 1.4em;
+            margin: 20px 0;
+            font-weight: bold;
+            color: #FFD700;
+        }
+
+        .help-box .signature {
+            font-size: 1.4em;
+            margin-top: 30px;
+            color: #FFD700;
+        }
+
+        .help-box p {
+            margin: 15px 0;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+
+            .main-wrapper {
+                margin-bottom: 20px;
+                flex-direction: column;
+                gap: 15px;
+                padding-right: 0;
+                align-items: center;
+            }
+
+            .container {
+                width: 90%;
+                max-width: 300px;
+                min-width: unset;
+                margin: 0 auto;
+                padding: 12px 20px;
+                order: 1;
+            }
+
+            .robot-container {
+                width: 90%;
+                max-width: 300px;
+                min-width: unset;
+                margin: 0 auto;
+                padding: 12px 20px;
+                order: 2;
+            }
+
+            .help-container {
+                width: 90%;
+                max-width: 300px;
+                min-width: unset;
+                margin: 0 auto;
+                padding: 12px 20px;
+                order: 3;
+            }
+
+            .bismillah, .robot-text, .help-text {
+                font-size: 1.3em;
+            }
+
+            .search-container {
+                width: 90%;
+                padding: 15px;
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .search-input {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .search-button {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .container, .robot-container, .help-container {
+                width: 95%;
+                padding: 10px 15px;
+            }
+
+            .bismillah, .robot-text, .help-text {
+                font-size: 1.1em;
+            }
+
+            .search-container {
+                width: 95%;
+                padding: 10px;
+            }
+
+            .result-box {
+                width: 95%;
+                margin: 10px auto;
+                padding: 15px;
+            }
+
+            .help-box {
+                width: 95%;
+                padding: 15px;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+
+            .help-box .highlight {
+                font-size: 1.2em;
+            }
+
+            .help-box p {
+                font-size: 0.9em;
+            }
+        }
     </style>
 </head>
-
 <body>
-    <div class="header">به وب سایت من خیلی خوش آمدید!</div>
-    <div class="subheader">🌟 طراحی شده توسط حاج امیر 🌟</div>
-
-    <div class="container">
-        <h2>ورود رمز</h2>
-        <input type="text" id="userInput" placeholder="رمز خود را وارد کنید">
-        <button onclick="processCode()">ارسال</button>
-        <div class="error" id="errorMessage"></div>
-        <div class="response" id="responseMessage"></div>
-
-        <div id="messageSection" style="display:none;">
-            <h2>لطفا پیام خود را وارد کنید</h2>
-            <textarea id="userMessage" placeholder="پیام خود را بنویسید..."></textarea>
-            <button onclick="sendMessage()">ارسال پیام</button>
+    <div class="content-wrapper">
+        <div class="main-wrapper">
+            <div class="container">
+                <div class="bismillah">﷽</div>
+            </div>
+            <div class="robot-container" onclick="toggleHiddenBox()">
+                <div class="robot-text">ربات</div>
+            </div>
+            <div class="help-container" onclick="toggleHelpBox()">
+                <div class="help-text">راهنما</div>
+            </div>
         </div>
+        <div id="searchContainer" class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-input" placeholder="جستجو کنید">
+            <button class="search-button" onclick="handleSearch()">ارسال</button>
+        </div>
+        <div id="resultBox" class="result-box"></div>
+    </div>
+    <div id="helpBox" class="help-box">
+        <div class="highlight">به بخش راهنما سایت خوش امدید!</div>
+        <p>شما می توانید با زدن دکمه ی ربات بالای صفحه وارد بخش ربات سایت بشید.</p>
+        <p>در قسمت جستجو کنید شما باید یک کد بزنید و ربات طبق کدی که براش فرستادی جواب تو میده</p>
+        <p>دقت کن که هر کدی نمیتونی بنویسی و اگه کدی بنویسی که در سیستم ثبت نشده باشه ربات برات اجرا نمیشه</p>
+        <div class="highlight">کد هارو از کجا گیر بیارم؟</div>
+        <p>کد هارو میتونی وارد چنل تلگرام ما بشی که میتونی داخل بخش ربات کلمه ی چنل رو بفرستی تا ربات لینک چنل مون رو برات ارسال کنه و از کد هایی که قرار میگیره با خبر بشی.</p>
+        <div class="highlight">هدف از ساخت این سایت خدمت به تو دوست عزیز هستش</div>
+        <div class="signature">طراحی شده توسط : حاج امیر</div>
     </div>
 
     <script>
-        const responses = {
-            "2": `ipv4👇👇<br><br>10.202.10.10<br><br>29.80.132.23<br><br>ipv6👇👇<br><br>609b:eafc:a86:218d:d104:27c1:dfa9:8543<br><br>662f:4efa:568c:4eb5:f16f:220:798d:4369<br><br>حتما قبل از استارت زدن DNS یک بار گوشی رو به مدت 10 ثانیه روی حالت پرواز بگذارید و بعد از بازی کردن لذت ببرید!`,
-            "1": `سلام!<br>من امیرمهدی حاجی بیگلو هستم.<br>کلاس دهم-شبکه و نرم افزار<br>متولد: 1388/5/15<br>موفق باشید!`,
-            "3": `ipv4👇👇<br><br>10.202.10.10<br><br>162.25.150.89<br><br>این کد فقط ipv4 است و ipv6 را خاموش کنید.`,
-            "543": `از قدیم گفتن که...<br>هرکی عدد 543 رو وارد کنه یک گی هستش<br>و الان این تویی که این عدد رو وارد کردی<br>پس تو یک (گی هستی)<br>خاک تو سره گی ات کنم`,
-            "88": `چه پیامی برای پشتیبان دارید؟`,
-            "4": `4e24:b56:6775:a789:27c9:c2b2:c8eb:7f11<br><br>41a0:e5fd:38e7:17b9:cfe2:9e6e:1501:912f`
-        };
+        function toggleHiddenBox() {
+            const searchContainer = document.getElementById('searchContainer');
+            const helpBox = document.getElementById('helpBox');
+            
+            // اول کادر راهنما رو میبندیم
+            helpBox.classList.remove('show');
+            
+            // بعد کادر جستجو رو باز/بسته میکنیم
+            searchContainer.classList.toggle('show');
+            
+            // اگر کادر نتیجه باز بود، اون رو هم میبندیم
+            const resultBox = document.getElementById('resultBox');
+            resultBox.classList.remove('show');
+        }
 
-        let messageDisplayed = false;
+        function toggleHelpBox() {
+            const helpBox = document.getElementById('helpBox');
+            const searchContainer = document.getElementById('searchContainer');
+            const resultBox = document.getElementById('resultBox');
+            
+            // کادر جستجو و نتیجه رو میبندیم
+            searchContainer.classList.remove('show');
+            resultBox.classList.remove('show');
+            
+            // کادر راهنما رو باز/بسته میکنیم
+            helpBox.classList.toggle('show');
+        }
 
-        function processCode() {
-            const userInput = document.getElementById('userInput').value;
-            const errorMessage = document.getElementById('errorMessage');
-            const responseMessage = document.getElementById('responseMessage');
-            const messageSection = document.getElementById('messageSection');
+        function handleSearch() {
+            const searchInput = document.querySelector('.search-input');
+            const resultBox = document.getElementById('resultBox');
+            const searchValue = searchInput.value.trim();
 
-            errorMessage.textContent = '';
-            responseMessage.innerHTML = '';
+            resultBox.classList.add('show');
 
-            if (responses[userInput]) {
-                responseMessage.innerHTML = `پاسخ شما:<br><br>${responses[userInput]}`;
-
-                if (userInput === "88" && !messageDisplayed) {
-                    messageSection.style.display = "block";
-                    messageDisplayed = true;
-
-                    // ارسال پیام به تلگرام
-                    sendToTelegram("کاربری عدد 88 را وارد کرد و وارد بخش ارسال پیام شد.");
-                } else if (userInput !== "88") {
-                    messageSection.style.display = "none";
-                    messageDisplayed = false;
-                }
+            if (searchValue === '1') {
+                resultBox.textContent = '10.202.10.10\n10.202.10.11';
+                resultBox.style.color = 'white';
+                resultBox.style.fontSize = '1.2em';
+            } else if (searchValue === 'سازنده') {
+                resultBox.textContent = 'این سایت توسط امیرمهدی حاجی بیگلو طراحی شده و در اختیار شما قرار گرفته. هدف از این سایت خدمت به شما دوست عزیز هستش';
+                resultBox.style.color = 'white';
+                resultBox.style.fontSize = '1.2em';
+            } else if (searchValue === 'چنل') {
+                resultBox.textContent = 'دوست دارم دوست عزیز';
+                resultBox.style.color = 'white';
+                resultBox.style.fontSize = '1.2em';
+            } else if (searchValue === 'نسل شیش') {
+                resultBox.textContent = 'سلام دوست من\nفردا ساعت 4 بعد از ظهر برات کد هارو قرار میدم\nفقط کافیه فردا دوباره مراجعه کنی و نسل شیش رو وارد کنی و تمام!';
+                resultBox.style.color = 'white';
+                resultBox.style.fontSize = '1.2em';
             } else {
-                errorMessage.textContent = 'متاسفم همچین رمزی در سیستم ثبت نشده است!';
-                messageSection.style.display = "none";
-                messageDisplayed = false;
+                resultBox.textContent = 'کاربر عزیز همچین کدی در سیستم ثبت نشده است!';
+                resultBox.style.color = '#ff0000';
+                resultBox.style.fontSize = '1.5em';
+                resultBox.style.fontWeight = 'bold';
+                resultBox.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.3)';
             }
-        }
-
-        function sendToTelegram(message) {
-            const token = "7870121961:AAGExjTsLbhohXAY6efTNlfKuIlqo_1vL_Q"; // توکن ربات شما
-            const chatId = "1418929811"; // Chat ID شما
-
-            fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    chat_id: chatId,
-                    text: message,
-                }),
-            })
-            .then(response => {
-                if (response.ok) {
-                    alert("پیام شما به پشتیبان ارسال شد!");
-                } else {
-                    alert("مشکلی در ارسال پیام به تلگرام پیش آمد.");
-                }
-            })
-            .catch(error => console.error("خطا در ارسال پیام:", error));
-        }
-
-        function sendMessage() {
-            const message = document.getElementById("userMessage").value;
-
-            if (!message) {
-                document.getElementById("errorMessage").textContent = "لطفاً پیام خود را وارد کنید!";
-                return;
-            }
-
-            // ارسال پیام کاربر به تلگرام
-            sendToTelegram(`پیام کاربر: ${message}`);
         }
     </script>
 </body>
-</html>
+</html> 
